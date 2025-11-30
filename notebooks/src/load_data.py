@@ -2,9 +2,16 @@ import sparknlp
 
 class LoadData:
     def __init__(self, path: str):
-        self.spark = sparknlp.start()
+        self.spark = SparkSession.getActiveSession()
 
-        self.application_categories = spark.read.csv('/content/data/application_categories.csv', header=True, inferSchema=True, multiLine=True, escape='"')
+        if spark is None:
+            # Nenhuma sessão ativa, criar uma nova
+            self.spark = SparkSession.builder \
+                .appName("MyApp") \
+                .getOrCreate()
+        
+
+        self.application_categories = spark.read.csv(f'/content/data/application_categories.csv', header=True, inferSchema=True, multiLine=True, escape='"')
         self.application_developers = spark.read.csv('/content/data/application_developers.csv', header=True, inferSchema=True, multiLine=True, escape='"')
         self.application_genres = spark.read.csv('/content/data/application_genres.csv', header=True, inferSchema=True, multiLine=True, escape='"')
         self.application_platforms = spark.read.csv('/content/data/application_platforms.csv', header=True, inferSchema=True, multiLine=True, escape='"')
