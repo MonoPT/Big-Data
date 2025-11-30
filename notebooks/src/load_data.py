@@ -5,7 +5,7 @@ class LoadData:
     def __init__(self, path: str):
         self.spark = SparkSession.getActiveSession()
 
-        if spark is None:
+        if self.spark is None:
             # Nenhuma sessão ativa, criar uma nova
             self.spark = sparknlp.start()
         
