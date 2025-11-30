@@ -21,3 +21,19 @@ class LoadData:
         self.platforms = self.spark.read.csv('/content/data/platforms.csv', header=True, inferSchema=True, multiLine=True, escape='"')
         self.publishers = self.spark.read.csv('/content/data/publishers.csv', header=True, inferSchema=True, multiLine=True, escape='"')
         self.reviews = self.spark.read.csv('/content/data/reviews.csv', header=True, inferSchema=True, multiLine=True, escape='"')
+
+    def dataframes(self):
+        return [
+            self.application_categories,
+            self.application_developers,
+            self.application_genres,
+            self.application_platforms,
+            self.application_publishers,
+            self.applications,
+            self.categories,
+            self.developers,
+            self.genres,
+            self.platforms,
+            self.publishers,
+            self.reviews
+        ]
